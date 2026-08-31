@@ -45,3 +45,28 @@ Orbbec RGB-D Camera와 RTAB-Map을 이용하여 실내 지도를 생성하고,
 Wheel Odometry와 IMU를 EKF로 융합하여 `/odometry/filtered`를 생성하고,
 RGB-D Camera와 융합 Odometry를 RTAB-Map의 입력으로 사용하여 Mapping 및 Localization 환경을 구성하였다.
 Nav2는 생성된 지도와 위치추정 정보, LiDAR `/scan` 기반 장애물 정보를 이용하여 경로 계획 및 자율주행을 수행한다.
+
+## Implementation
+
+### 1. Sensor & TF Configuration
+
+LIMO Pro에 탑재된 RGB-D Camera, Wheel Odometry, IMU 및 LiDAR의 ROS 2 토픽을 확인하고,
+각 센서 데이터의 발행 주기와 좌표계(Frame)를 분석하였다.
+
+주요 센서 토픽은 다음과 같다.
+
+| Sensor | ROS 2 Topic | Description |
+|---|---|---|
+| RGB Camera | `/camera/color/image_raw` | RGB Image |
+| Depth Camera | `/camera/depth/image_raw` | Depth Image |
+| Wheel Odometry | `/odom` | Wheel Odometry |
+| IMU | `/imu/data` | Orientation / Angular Velocity / Acceleration |
+| Fused Odometry | `/odometry/filtered` | EKF-based Odometry |
+| LiDAR | `/scan` | 2D LaserScan |
+
+RGB-D Camera의 Depth 데이터를 Color Camera 좌표계에 정렬하고,
+`base_link`를 기준으로 카메라의 실제 장착 위치와 각도를 반영하도록 TF를 구성하였다.
+
+특히 카메라의 물리적인 장착 각도와 TF가 일치하지 않을 경우 Depth Point Cloud와
+Occupancy Grid에 왜곡이 발생할 수 있음을 확인하고, 카메라 장착 각도에 맞추어
+`base_link → camera_mount → camera_rotate → camera_link` TF 구조를 조정하였다.
