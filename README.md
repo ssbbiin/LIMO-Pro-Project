@@ -97,3 +97,37 @@ Nav2는 현재 위치와 사용자가 지정한 Goal Pose를 기반으로 Global
   <em>LIMO-PRO 시작지점</em>
 </p>
 
+### 4. Wheel Odometry Only — Baseline
+
+센서융합의 효과를 비교하기 위한 Baseline으로 Wheel Odometry만을 이용하여
+로봇의 이동 상태를 추정하는 조건을 구성하였다.
+
+이 조건에서는 IMU 데이터를 위치추정에 사용하지 않고,
+Wheel Encoder로부터 계산된 Odometry를 기반으로 RTAB-Map Localization과
+Nav2 자율주행을 수행하였다.
+
+Wheel Odometry는 바퀴의 회전량을 기반으로 로봇의 이동량을 추정하기 때문에
+주행 거리가 증가하거나 회전 및 미끄러짐이 발생할 경우 오차가 누적될 수 있다.
+
+이후 Wheel Odometry + IMU EKF 조건과 동일한 지도, 시작 위치, Goal Pose 및
+Nav2 설정에서 반복 주행하여 자율주행 성능을 비교하였다.
+**Baseline data flow**
+
+`Wheel Odometry → RTAB-Map Localization → Nav2 → LIMO Pro`
+
+### 5. Wheel Odometry + IMU EKF Sensor Fusion
+
+Wheel Odometry의 누적 오차를 보완하기 위해 IMU 데이터를 함께 사용하고,
+ROS 2 `robot_localization` 패키지의 Extended Kalman Filter(EKF)를 이용하여
+센서융합 기반 Odometry를 구성하였다.
+
+EKF는 Wheel Odometry와 IMU의 측정값을 융합하여 `/odometry/filtered`를 생성하며,
+이를 RTAB-Map Localization 및 Navigation을 위한 Odometry 정보로 사용하였다.
+
+이를 통해 Wheel Odometry만 사용하는 Baseline과 비교하여 IMU 융합이
+로봇의 위치 및 자세 추정과 실제 자율주행 성능에 미치는 영향을 분석하였다.
+**Sensor fusion data flow**
+
+`Wheel Odometry ─┐`  
+`                ├─→ EKF → /odometry/filtered → RTAB-Map Localization → Nav2`  
+`IMU ────────────┘`
