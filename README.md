@@ -36,3 +36,12 @@ Orbbec RGB-D Camera와 RTAB-Map을 이용하여 실내 지도를 생성하고,
 | Data Logging | rosbag2 |
 | Analysis | Python |
 
+## System Architecture
+
+<p align="center">
+  <img src="system_architecture.png" width="100%">
+</p>
+
+RGB-D Camera와 Odometry 정보를 기반으로 RTAB-Map에서 Mapping 및 Localization을 수행하고,
+Wheel Odometry와 IMU는 EKF를 통해 융합하여 위치추정에 활용하였다.
+Nav2는 지도 및 위치추정 정보와 LiDAR 기반 장애물 정보를 이용하여 경로 계획 및 자율주행을 수행한다.
