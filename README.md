@@ -75,3 +75,25 @@ RGB-D Camera의 Depth 데이터를 Color Camera 좌표계에 정렬하고,
 <p align="center">
   <em>RGB-D Camera와 Odometry를 이용한 RTAB-Map 기반 3D Mapping 결과</em>
 </p>
+
+### 3. Localization & Nav2 Autonomous Navigation
+
+Mapping을 통해 생성한 지도를 기반으로 RTAB-Map을 Localization mode로 실행하고,
+Nav2와 연동하여 실내 자율주행 환경을 구성하였다.
+
+RTAB-Map은 RGB-D Camera 데이터와 Odometry를 이용하여 지도 상에서 로봇의 위치를 추정하며,
+Nav2는 현재 위치와 사용자가 지정한 Goal Pose를 기반으로 Global Path와 Local Path를 생성한다.
+
+주행 중에는 LiDAR `/scan` 데이터를 Nav2 Costmap의 Obstacle Layer에 입력하여
+주변 장애물을 반영하도록 구성하였다.
+
+이를 통해 동일한 지도와 Navigation 설정을 유지한 상태에서
+위치추정 방식에 따른 자율주행 성능을 비교할 수 있는 실험 환경을 구축하였다.
+<p align="center">
+  <img src="nav2_start" width="850">
+</p>
+
+<p align="center">
+  <em>RTAB-Map Localization과 Nav2를 연동한 실내 자율주행</em>
+</p>
+
