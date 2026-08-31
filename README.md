@@ -111,9 +111,7 @@ Wheel Odometry는 바퀴의 회전량을 기반으로 로봇의 이동량을 추
 
 이후 Wheel Odometry + IMU EKF 조건과 동일한 지도, 시작 위치, Goal Pose 및
 Nav2 설정에서 반복 주행하여 자율주행 성능을 비교하였다.
-**Baseline data flow**
 
-`Wheel Odometry → RTAB-Map Localization → Nav2 → LIMO Pro`
 
 ### 5. Wheel Odometry + IMU EKF Sensor Fusion
 
@@ -126,8 +124,10 @@ EKF는 Wheel Odometry와 IMU의 측정값을 융합하여 `/odometry/filtered`�
 
 이를 통해 Wheel Odometry만 사용하는 Baseline과 비교하여 IMU 융합이
 로봇의 위치 및 자세 추정과 실제 자율주행 성능에 미치는 영향을 분석하였다.
-**Sensor fusion data flow**
 
-`Wheel Odometry ─┐`  
-`                ├─→ EKF → /odometry/filtered → RTAB-Map Localization → Nav2`  
-`IMU ────────────┘`
+#### Odometry Configuration
+
+| Configuration | Input | Odometry used for Localization / Navigation |
+|---|---|---|
+| **Wheel Odometry Only (Baseline)** | Wheel Encoder | `/odom` |
+| **Wheel + IMU EKF (Sensor Fusion)** | Wheel Odometry + IMU | `/odometry/filtered` |
