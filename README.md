@@ -67,12 +67,9 @@ LIMO Pro에 탑재된 RGB-D Camera, Wheel Odometry, IMU 및 LiDAR의 ROS 2 토�
 RGB-D Camera의 Depth 데이터를 Color Camera 좌표계에 정렬하고,
 `base_link`를 기준으로 카메라의 실제 장착 위치와 각도를 반영하도록 TF를 구성하였다.
 
-특히 카메라의 물리적인 장착 각도와 TF가 일치하지 않을 경우 Depth Point Cloud와
-Occupancy Grid에 왜곡이 발생할 수 있음을 확인하고, 카메라 장착 각도에 맞추어
-`base_link → camera_mount → camera_rotate → camera_link` TF 구조를 조정하였다.
 
 <p align="center">
-  <img src="images/rtabmap_3d_mapping.png" width="850">
+  <img src="rtabmap_3d_mapping.png">
 </p>
 
 <p align="center">
