@@ -69,7 +69,7 @@ RGB-D Camera의 Depth 데이터를 Color Camera 좌표계에 정렬하고,
 
 
 <p align="center">
-  <img src="rtabmap_3d_mapping.png">
+  <img src="rtab1.png">
 </p>
 
 <p align="center">
