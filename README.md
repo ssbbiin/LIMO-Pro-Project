@@ -171,3 +171,32 @@ Nav2 자율주행 결과를 비교한 RViz 화면이다.
 |---|---|
 | <img src="wheel_only_goal.png" width="400"> | <img src="sensor_fusion_goal.png" width="400"> |
 | **Baseline** | **Sensor Fusion** |
+
+## Results & Analysis
+
+복잡한 장애물 환경에서 Wheel Odometry Only와 Wheel + IMU EKF 조건을 비교하였다.
+
+Goal A와 Goal B를 각각 5회씩 수행하여 모드당 10회,
+총 20회의 자율주행 데이터를 수집하였다.
+
+### Quantitative Results
+
+| Metric | Wheel Odometry Only | Wheel + IMU EKF |
+|---|---:|---:|
+| Success Rate | 90% (9/10) | **100% (10/10)** |
+| Avg. Navigation Time | 45.14 s | **19.22 s** |
+| Median Navigation Time | 24.80 s | **17.95 s** |
+| Avg. Recovery Count | 0.8 | **0.0** |
+| Avg. Trajectory Length | 4.404 m | **4.248 m** |
+| Path MAE | **0.0239 m** | 0.0269 m |
+| Path RMSE | **0.0326 m** | 0.0338 m |
+| Path Max Error | 0.1312 m | **0.0960 m** |
+| Final Position Error | 0.2470 m | **0.2129 m** |
+| Final Yaw Error | **10.90°** | 11.67° |
+### Key Performance Comparison
+
+<p align="center">
+  <img src="avg_navigation_time.png" width="32%">
+  <img src="success_rate.png" width="32%">
+  <img src="avg_recoveries.png" width="32%">
+</p>
