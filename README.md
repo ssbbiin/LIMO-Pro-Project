@@ -94,6 +94,6 @@ Nav2는 현재 위치와 사용자가 지정한 Goal Pose를 기반으로 Global
 </p>
 
 <p align="center">
-  <em>RTAB-Map Localization과 Nav2를 연동한 실내 자율주행</em>
+  <em>LIMO-PRO 시작지점</em>
 </p>
 
