@@ -200,3 +200,17 @@ Goal A와 Goal B를 각각 5회씩 수행하여 모드당 10회,
   <img src="success_rate.png" width="32%">
   <img src="avg_recoveries.png" width="32%">
 </p>
+## Results & Observations
+
+동일한 Mapping 결과와 Nav2 설정에서 Wheel Odometry Only와
+Wheel Odometry + IMU EKF 조건으로 반복 자율주행 실험을 수행하였다.
+
+실험 과정에서 주행 시간, Recovery 발생 여부, 경로 추종 특성,
+Goal 도달 상태 등을 기록하였으며, 일부 Wheel Odometry 조건에서는
+주행 중 일시적인 정체 및 위치추정 불안정 현상이 관찰되었다.
+
+반면 센서융합 조건에서도 모든 상황에서 성능이 일관되게 향상되는 것은
+아니었으며, 주행 환경과 위치추정 상태에 따라 차이가 발생하였다.
+
+이를 통해 센서 추가 자체보다 센서 데이터의 특성, EKF 설정 및
+Localization과의 상호작용이 실제 자율주행 성능에 중요함을 확인하였다.
