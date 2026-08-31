@@ -38,13 +38,17 @@ Orbbec RGB-D Camera와 RTAB-Map을 이용하여 실내 지도를 생성하고,
 
 ## System Architecture
 
-<p align="center">
-  <img src="system_architecture.png" width="100%">
-</p>
+Wheel Odometry Only 조건과 Wheel Odometry + IMU Sensor Fusion 조건에서
+동일한 ROS 2 Navigation pipeline을 구성하였다.
 
-Wheel Odometry와 IMU를 EKF로 융합하여 `/odometry/filtered`를 생성하고,
-RGB-D Camera와 융합 Odometry를 RTAB-Map의 입력으로 사용하여 Mapping 및 Localization 환경을 구성하였다.
-Nav2는 생성된 지도와 위치추정 정보, LiDAR `/scan` 기반 장애물 정보를 이용하여 경로 계획 및 자율주행을 수행한다.
+두 조건 모두 EKF가 생성한 `/odometry/filtered`를 RTAB-Map의 Odometry 입력으로 사용하며,
+차이는 EKF에 입력되는 Sensor 구성에 두었다.
+
+- **Wheel Odometry Only:** `/odom` → EKF → `/odometry/filtered`
+- **Wheel + IMU Fusion:** `/odom` + `/imu/data` → EKF → `/odometry/filtered`
+
+RTAB-Map은 RGB-D Camera와 Odometry를 이용하여 Mapping 및 Localization을 수행하고,
+Nav2는 생성된 지도와 LiDAR `/scan`을 이용하여 Global / Local Path를 생성하고 장애물을 회피하도록 구성하였다.
 
 ## Implementation
 
@@ -67,7 +71,13 @@ LIMO Pro에 탑재된 RGB-D Camera, Wheel Odometry, IMU 및 LiDAR의 ROS 2 토�
 RGB-D Camera의 Depth 데이터를 Color Camera 좌표계에 정렬하고,
 `base_link`를 기준으로 카메라의 실제 장착 위치와 각도를 반영하도록 TF를 구성하였다.
 
+### 2. RGB-D Mapping with RTAB-Map
 
+Orbbec RGB-D Camera의 RGB 및 Depth 데이터와 Odometry 정보를 이용하여
+RTAB-Map 기반 실내 3D Mapping을 수행하였다.
+
+생성된 지도는 이후 두 Odometry 조건의 자율주행 성능을
+동일한 환경에서 비교하기 위한 Navigation Map으로 사용하였다.
 <p align="center">
   <img src="rtab1.png">
 </p>
@@ -127,10 +137,10 @@ EKF는 Wheel Odometry와 IMU의 측정값을 융합하여 `/odometry/filtered`�
 
 #### Odometry Configuration
 
-| Configuration | Input | Odometry used for Localization / Navigation |
+| Configuration | EKF Input | Output used by RTAB-Map |
 |---|---|---|
-| **Wheel Odometry Only (Baseline)** | Wheel Encoder | `/odom` |
-| **Wheel + IMU EKF (Sensor Fusion)** | Wheel Odometry + IMU | `/odometry/filtered` |
+| **Wheel Odometry Only (Baseline)** | Wheel Odometry `/odom` | `/odometry/filtered` |
+| **Wheel + IMU EKF (Sensor Fusion)** | Wheel Odometry `/odom` + IMU `/imu` | `/odometry/filtered` |
 
 ## Experimental Setup
 
