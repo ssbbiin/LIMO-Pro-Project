@@ -131,3 +131,42 @@ EKF는 Wheel Odometry와 IMU의 측정값을 융합하여 `/odometry/filtered`�
 |---|---|---|
 | **Wheel Odometry Only (Baseline)** | Wheel Encoder | `/odom` |
 | **Wheel + IMU EKF (Sensor Fusion)** | Wheel Odometry + IMU | `/odometry/filtered` |
+
+## Experimental Setup
+
+Wheel Odometry Only와 Wheel Odometry + IMU EKF의 차이가 실제 자율주행 성능에
+미치는 영향을 비교하기 위해 동일한 주행 환경에서 반복 실험을 구성하였다.
+
+두 조건에서 Mapping 결과와 Nav2 설정은 동일하게 유지하고,
+Odometry 구성만 변경하여 위치추정 방식에 따른 성능 차이를 비교하였다.
+
+### Controlled Conditions
+
+| Parameter | Condition |
+|---|---|
+| Map | Same RTAB-Map |
+| Start Pose | Same start position and orientation |
+| Goal Pose | Same target position and orientation |
+| Navigation | Same Nav2 configuration |
+| Environment | Same indoor test environment |
+| Variable | Odometry configuration |
+
+### Evaluation Metrics
+
+| Metric | Description |
+|---|---|
+| Navigation Success | Goal 도달 성공 여부 |
+| Navigation Time | 출발부터 Goal 도달까지 소요 시간 |
+| Recovery Count | 주행 중 발생한 Recovery 횟수 |
+| Path Deviation | 기준 경로 대비 실제 주행 경로의 편차 |
+| Final Position Error | Goal Pose와 최종 위치 사이의 오차 |
+| Final Yaw Error | 목표 자세와 최종 자세 사이의 각도 오차 |
+### Goal Arrival Comparison
+
+동일한 Start Pose와 Goal Pose를 설정하고 두 Odometry 조건에서 반복 자율주행을 수행하였다.
+아래는 각 조건에서 Nav2 주행을 완료하여 Goal 지점에 도달한 상태를 보여준다.
+
+| Wheel Odometry Only | Wheel Odometry + IMU EKF |
+|---|---|
+| <img src="wheel_only_goal.jpg" width="400"> | <img src="sensor_fusion_goal.jpg" width="400"> |
+| **Baseline** | **Sensor Fusion** |
