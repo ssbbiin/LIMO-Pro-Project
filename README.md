@@ -70,3 +70,11 @@ RGB-D Camera의 Depth 데이터를 Color Camera 좌표계에 정렬하고,
 특히 카메라의 물리적인 장착 각도와 TF가 일치하지 않을 경우 Depth Point Cloud와
 Occupancy Grid에 왜곡이 발생할 수 있음을 확인하고, 카메라 장착 각도에 맞추어
 `base_link → camera_mount → camera_rotate → camera_link` TF 구조를 조정하였다.
+
+<p align="center">
+  <img src="images/rtabmap_3d_mapping.png" width="850">
+</p>
+
+<p align="center">
+  <em>RGB-D Camera와 Odometry를 이용한 RTAB-Map 기반 3D Mapping 결과</em>
+</p>
