@@ -90,7 +90,7 @@ Nav2는 현재 위치와 사용자가 지정한 Goal Pose를 기반으로 Global
 이를 통해 동일한 지도와 Navigation 설정을 유지한 상태에서
 위치추정 방식에 따른 자율주행 성능을 비교할 수 있는 실험 환경을 구축하였다.
 <p align="center">
-  <img src="nav2_start" width="850">
+  <img src="nav2_start.png" width="850">
 </p>
 
 <p align="center">
