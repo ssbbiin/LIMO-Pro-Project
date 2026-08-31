@@ -42,6 +42,6 @@ Orbbec RGB-D Camera와 RTAB-Map을 이용하여 실내 지도를 생성하고,
   <img src="system_architecture.png" width="100%">
 </p>
 
-RGB-D Camera와 Odometry 정보를 기반으로 RTAB-Map에서 Mapping 및 Localization을 수행하고,
-Wheel Odometry와 IMU는 EKF를 통해 융합하여 위치추정에 활용하였다.
-Nav2는 지도 및 위치추정 정보와 LiDAR 기반 장애물 정보를 이용하여 경로 계획 및 자율주행을 수행한다.
+Wheel Odometry와 IMU를 EKF로 융합하여 `/odometry/filtered`를 생성하고,
+RGB-D Camera와 융합 Odometry를 RTAB-Map의 입력으로 사용하여 Mapping 및 Localization 환경을 구성하였다.
+Nav2는 생성된 지도와 위치추정 정보, LiDAR `/scan` 기반 장애물 정보를 이용하여 경로 계획 및 자율주행을 수행한다.
