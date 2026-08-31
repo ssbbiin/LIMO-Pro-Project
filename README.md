@@ -168,5 +168,5 @@ Odometry 구성만 변경하여 위치추정 방식에 따른 성능 차이를 �
 
 | Wheel Odometry Only | Wheel Odometry + IMU EKF |
 |---|---|
-| <img src="wheel_only_goal.jpg" width="400"> | <img src="sensor_fusion_goal.jpg" width="400"> |
+| <img src="wheel_only_goal.png" width="400"> | <img src="sensor_fusion_goal.png" width="400"> |
 | **Baseline** | **Sensor Fusion** |
