@@ -161,10 +161,11 @@ Odometry 구성만 변경하여 위치추정 방식에 따른 성능 차이를 �
 | Path Deviation | 기준 경로 대비 실제 주행 경로의 편차 |
 | Final Position Error | Goal Pose와 최종 위치 사이의 오차 |
 | Final Yaw Error | 목표 자세와 최종 자세 사이의 각도 오차 |
-### Goal Arrival Comparison
+### Navigation Result Comparison
 
 동일한 Start Pose와 Goal Pose를 설정하고 두 Odometry 조건에서 반복 자율주행을 수행하였다.
-아래는 각 조건에서 Nav2 주행을 완료하여 Goal 지점에 도달한 상태를 보여준다.
+아래는 Wheel Odometry Only와 Wheel Odometry + IMU EKF 조건에서의
+Nav2 자율주행 결과를 비교한 RViz 화면이다.
 
 | Wheel Odometry Only | Wheel Odometry + IMU EKF |
 |---|---|
