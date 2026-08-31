@@ -200,7 +200,8 @@ Goal A와 Goal B를 각각 5회씩 수행하여 모드당 10회,
   <img src="success_rate.png" width="32%">
   <img src="avg_recoveries.png" width="32%">
 </p>
-## Results & Observations
+
+##  Results & Observations
 
 동일한 Mapping 결과와 Nav2 설정에서 Wheel Odometry Only와
 Wheel Odometry + IMU EKF 조건으로 반복 자율주행 실험을 수행하였다.
